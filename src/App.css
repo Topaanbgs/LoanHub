@@ -20,15 +20,19 @@
 }
 
 .nav-button {
-  background-color: #000000;
+  background-color: transparent;
   border: none;
   padding: 10px;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
 }
 
-.nav-button:hover {
-  background-color: #f0f0f0;
+.nav-button i {
+  color: #000;
+}
+
+.nav-button:hover i {
+  color: #007bff;
 }
 
 .month-name {

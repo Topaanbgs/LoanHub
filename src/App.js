@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
+import AddBooking from './AddBooking';
+import BookingsList from './BookingsList';
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(0);
-  const [currentYear, setCurrentYear] = useState(2024); // added current year state
+  const [currentYear, setCurrentYear] = useState(2024);
 
   const months = [
     { name: 'January', days: 31 },
@@ -60,7 +62,7 @@ function App() {
               <tr key={rowIndex}>
                 {Array(7).fill(0).map((_, colIndex) => (
                   <td key={colIndex} onClick={() => handleDateClick(rowIndex * 7 + colIndex + 1)}>
-                    {rowIndex * 7 + colIndex + 1 <= months[currentMonth].days? rowIndex * 7 + colIndex + 1 : ''}
+                    {rowIndex * 7 + colIndex + 1 <= months[currentMonth].days ? rowIndex * 7 + colIndex + 1 : ''}
                   </td>
                 ))}
               </tr>
