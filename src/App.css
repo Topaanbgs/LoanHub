@@ -56,3 +56,25 @@
 .calendar td:hover {
   background-color: #f0f0f0;
 }
+
+.available-items {
+  margin-top: 20px;
+}
+
+.available-items h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.available-items ul {
+  list-style: none;
+  padding: 0;
+}
+
+.available-items li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}

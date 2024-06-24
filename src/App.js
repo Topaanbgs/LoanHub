@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { db } from './firebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import AddBooking from './AddBooking';
 import BookingsList from './BookingsList';
 
@@ -7,6 +9,7 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(0);
   const [currentYear, setCurrentYear] = useState(2024);
+  const [availableItems, setAvailableItems] = useState([]);
 
   const months = [
     { name: 'January', days: 31 },
@@ -23,8 +26,25 @@ function App() {
     { name: 'December', days: 31 },
   ];
 
+  useEffect(() => {
+    if (selectedDate) {
+      const fetchAvailableItems = async () => {
+        const q = query(collection(db, 'items'), where('availability', 'array-contains', selectedDate));
+        const querySnapshot = await getDocs(q);
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          items.push({ id: doc.id, ...doc.data() });
+        });
+        setAvailableItems(items);
+      };
+
+      fetchAvailableItems();
+    }
+  }, [selectedDate]);
+
   const handleDateClick = (date) => {
-    setSelectedDate(date);
+    const selected = `${currentYear}-${currentMonth + 1}-${date}`;
+    setSelectedDate(selected);
   };
 
   const handleMonthChange = (direction) => {
@@ -73,9 +93,8 @@ function App() {
       {selectedDate && (
         <div>
           <h2>You selected: {selectedDate}</h2>
-          <p>
-            <a href={`/date/${selectedDate}`}>View details</a>
-          </p>
+          <BookingsList selectedDate={selectedDate} />
+          <AddBooking selectedDate={selectedDate} availableItems={availableItems} />
         </div>
       )}
     </div>

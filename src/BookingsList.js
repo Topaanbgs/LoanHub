@@ -1,36 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { db } from './firebaseConfig'; // Pastikan jalur impor benar
-import { collection, getDocs } from 'firebase/firestore';
+import { db } from './firebaseConfig';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
-const BookingsList = () => {
+function BookingsList({ selectedDate }) {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     const fetchBookings = async () => {
-      const bookingsCollection = collection(db, 'bookings');
-      const bookingsSnapshot = await getDocs(bookingsCollection);
-      const bookingsList = bookingsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+      const q = query(collection(db, 'bookings'), where('date', '==', selectedDate));
+      const querySnapshot = await getDocs(q);
+      const bookingsList = [];
+      querySnapshot.forEach((doc) => {
+        bookingsList.push({ id: doc.id, ...doc.data() });
+      });
       setBookings(bookingsList);
     };
 
-    fetchBookings();
-  }, []);
+    if (selectedDate) {
+      fetchBookings();
+    }
+  }, [selectedDate]);
 
   return (
-    <div>
-      <h2>Bookings</h2>
-      <ul>
-        {bookings.map(booking => (
-          <li key={booking.id}>
-            {booking.user_id} booked {booking.item_id} from {new Date(booking.start_date.seconds * 1000).toLocaleString()} to {new Date(booking.end_date.seconds * 1000).toLocaleString()}
-          </li>
-        ))}
-      </ul>
+    <div className="bookings-list">
+      <h2>Bookings for {selectedDate}</h2>
+      {bookings.length > 0 ? (
+        <ul>
+          {bookings.map(booking => (
+            <li key={booking.id}>
+              {booking.user} booked {booking.item}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No bookings for this date.</p>
+      )}
     </div>
   );
-};
+}
 
 export default BookingsList;

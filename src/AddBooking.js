@@ -1,68 +1,48 @@
 import React, { useState } from 'react';
-import { db } from './firebaseConfig'; // Pastikan jalur impor benar
+import { db } from './firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 
-const AddBooking = () => {
-  const [booking, setBooking] = useState({
-    user_id: '',
-    item_id: '',
-    start_date: '',
-    end_date: ''
-  });
+function AddBooking({ selectedDate, availableItems }) {
+  const [selectedItem, setSelectedItem] = useState('');
+  const [userName, setUserName] = useState('');
 
-  const handleChange = (e) => {
-    setBooking({
-      ...booking,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await addDoc(collection(db, 'bookings'), {
-        user_id: booking.user_id,
-        item_id: booking.item_id,
-        start_date: new Date(booking.start_date),
-        end_date: new Date(booking.end_date)
-      });
-      console.log('Booking added');
-    } catch (error) {
-      console.error('Error adding booking: ', error);
+  const handleAddBooking = async () => {
+    if (selectedItem && userName) {
+      try {
+        await addDoc(collection(db, 'bookings'), {
+          date: selectedDate,
+          item: selectedItem,
+          user: userName
+        });
+        alert('Booking added successfully!');
+      } catch (error) {
+        console.error('Error adding booking: ', error);
+        alert('Failed to add booking.');
+      }
+    } else {
+      alert('Please select an item and enter your name.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="user_id"
-        placeholder="User ID"
-        value={booking.user_id}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="item_id"
-        placeholder="Item ID"
-        value={booking.item_id}
-        onChange={handleChange}
-      />
-      <input
-        type="datetime-local"
-        name="start_date"
-        value={booking.start_date}
-        onChange={handleChange}
-      />
-      <input
-        type="datetime-local"
-        name="end_date"
-        value={booking.end_date}
-        onChange={handleChange}
-      />
-      <button type="submit">Add Booking</button>
-    </form>
+    <div className="add-booking">
+      <h2>Add Booking for {selectedDate}</h2>
+      <label>
+        Select Item:
+        <select value={selectedItem} onChange={(e) => setSelectedItem(e.target.value)}>
+          <option value="">Select an item</option>
+          {availableItems.map(item => (
+            <option key={item.id} value={item.name}>{item.name}</option>
+          ))}
+        </select>
+      </label>
+      <label>
+        Your Name:
+        <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
+      </label>
+      <button onClick={handleAddBooking}>Add Booking</button>
+    </div>
   );
-};
+}
 
 export default AddBooking;
