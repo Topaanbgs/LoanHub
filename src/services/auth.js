@@ -3,7 +3,7 @@ import { auth, firestore } from './firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 
-export const register = async (email, password, name) => {
+export const RegisterForm = async (username, password, confirmPassword) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
   await setDoc(doc(firestore, 'users', user.uid), {

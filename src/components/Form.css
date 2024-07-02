@@ -1,78 +1,79 @@
-/* FormPeminjaman.css */
-body {
-    font-family: "Montserrat", sans-serif;
-    background-color: #ffffff;
+/* src/components/Form.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   
-  .form-container {
-    width: 100%;
+  body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .borrow-form-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 20px;
-  }
-  
-  .form-peminjaman {
-    width: 100%;
-    max-width: 600px;
-    background-color: #f9f9f9;
+    height: 100vh;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
   
-  .form-peminjaman h1 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-  }
-  
-  table {
+  .borrow-form-wrapper {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
     width: 100%;
   }
   
-  td {
-    padding: 10px;
+  .borrow-form-wrapper h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
   }
   
-  input, textarea {
+  .borrow-input-box {
+    margin-bottom: 20px;
+  }
+  
+  .borrow-input-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .borrow-input-box input,
+  .borrow-input-box select,
+  .borrow-input-box textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
   }
   
-  input:focus, textarea:focus {
-    border-color: #4CAF50;
+  .borrow-input-box textarea {
+    resize: none;
   }
   
-  button[type="submit"] {
+  .borrow-form-wrapper button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #000;
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-radius: 5px;
     font-size: 16px;
+    cursor: pointer;
   }
   
-  button[type="submit"]:hover {
-    background-color: #45a049;
-  }
-  
-  .notification {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 4px;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .borrow-form-wrapper button:hover {
+    background-color: #444;
   }
   
