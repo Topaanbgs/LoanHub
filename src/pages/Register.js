@@ -1,6 +1,7 @@
 // src/pages/Register.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { register } from '../auth';  // Import register from auth.js
 import '../components/Register.css';
 import { FaUser, FaLock } from "react-icons/fa";
 
@@ -8,17 +9,22 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Tambahkan logika pendaftaran disini
     if (password === confirmPassword) {
-      history.push('/home');
+      try {
+        await register(username, password);
+        navigate('/home');
+      } catch (error) {
+        alert('Gagal mendaftar: ' + error.message);
+      }
     } else {
       alert('Password dan Konfirmasi Password tidak sama');
     }
   };
+
   return (
     <div className='register-container'>
       <div className='register-left-column'>
@@ -26,18 +32,18 @@ const RegisterForm = () => {
       </div>
       <div className='register-right-column'>
         <div className='register-wrapper'>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <h1>Register</h1>
             <div className="register-input-box">
-              <input type="text" placeholder='Username' required />
+              <input type="email" placeholder='Email' value={username} onChange={(e) => setUsername(e.target.value)} required />
               <FaUser className='icon'/>
             </div>
             <div className="register-input-box">
-              <input type="password" placeholder='Password' required />
+              <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
               <FaLock className='icon'/>
             </div>
             <div className="register-input-box">
-              <input type="password" placeholder='Confirm Password' required />
+              <input type="password" placeholder='Confirm Password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
               <FaLock className='icon'/>
             </div>
 

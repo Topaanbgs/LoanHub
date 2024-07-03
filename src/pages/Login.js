@@ -1,20 +1,21 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../auth';  // Import login from auth.js
 import '../components/Login.css';
 import { FaUser, FaLock } from "react-icons/fa";
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Tambahkan logika autentikasi disini
-    if (username === 'admin' && password === '123') {
-      history.push('/home');
-    } else {
+    try {
+      await login(username, password);
+      navigate('/home');
+    } catch (error) {
       alert('Username atau password salah');
     }
   };
@@ -26,14 +27,14 @@ const LoginForm = () => {
       </div>
       <div className='login-right-column'>
         <div className='login-wrapper'>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <h1>Login</h1>
             <div className="login-input-box">
-              <input type="text" placeholder='Username' required />
+              <input type="email" placeholder='Email' value={username} onChange={(e) => setUsername(e.target.value)} required />
               <FaUser className='icon'/>
             </div>
             <div className="login-input-box">
-              <input type="password" placeholder='Password' required />
+              <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
               <FaLock className='icon'/>
             </div>
 

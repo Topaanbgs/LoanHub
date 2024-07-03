@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+// src/pages/HomePage.js
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../components/HomePage.css';
@@ -7,14 +11,23 @@ import proyektorImg from '../assets/proyektor.png';
 import laptopImg from '../assets/laptop.png';
 import kameraImg from '../assets/kamera.png';
 import speakerImg from '../assets/speaker.png';
-import Form from '../pages/Form.js';
+import BorrowForm from '../pages/Form';
+import LogoutForm from '../pages/Logout';
 
 const HomePage = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const navigate = useNavigate();
 
-  // Contoh daftar barang
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate('/login');
+      }
+    });
+  }, [navigate]);
+
   const items = [
     { id: 1, name: 'Proyektor', img: proyektorImg },
     { id: 2, name: 'Laptop', img: laptopImg },
@@ -71,7 +84,7 @@ const HomePage = () => {
           </div>
         ))}
       </div>
-      {selectedItem && <Form />}
+      {selectedItem && <BorrowForm />}
     </div>
   );
 }
