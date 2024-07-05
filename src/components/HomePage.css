@@ -72,4 +72,22 @@
     object-fit: contain;
     margin-bottom: 10px;
   }
+
+  .logout-button {
+    display: flex;
+    margin-left: 1200px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .logout-button:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
   

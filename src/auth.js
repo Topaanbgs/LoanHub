@@ -29,11 +29,3 @@ export const login = async (email, password) => {
     throw error;
   }
 };
-
-export const logout = async () => {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    throw error;
-  }
-};

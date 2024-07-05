@@ -1,10 +1,9 @@
-// src/components/Form.js
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import '../components/Form.css';
 
-const BorrowForm = () => {
+const BorrowForm = ({ startDate, endDate, itemId, itemName }) => {
   const [nama, setNama] = useState('');
   const [nim, setNim] = useState('');
   const [fakultas, setFakultas] = useState('');
@@ -16,12 +15,20 @@ const BorrowForm = () => {
     e.preventDefault();
     try {
       await addDoc(collection(db, 'borrowRequests'), {
-        nama,
-        nim,
-        fakultas,
-        programStudi,
-        semester,
-        keperluan
+        peminjaman: {
+          startDate: startDate.toString(),
+          endDate: endDate.toString(),
+          itemId,
+          itemName
+        },
+        pengguna: {
+          nama,
+          nim,
+          fakultas,
+          programStudi,
+          semester,
+          keperluan
+        }
       });
       alert('Pengajuan peminjaman berhasil');
       // Clear the form
@@ -56,9 +63,14 @@ const BorrowForm = () => {
             <label htmlFor="fakultas">Fakultas</label>
             <select id="fakultas" name="fakultas" value={fakultas} onChange={(e) => setFakultas(e.target.value)} required>
               <option value="">Pilih Fakultas</option>
-              <option value="fakultas1">Fakultas 1</option>
-              <option value="fakultas2">Fakultas 2</option>
-              <option value="fakultas3">Fakultas 3</option>
+              <option value="FIP">Fakultas Ilmu Pendidikan</option>
+              <option value="FMIPA">Fakultas Matematika dan Ilmu Pengetahuan Alam</option>
+              <option value="FTK">Fakultas Teknik dan Kejuruan</option>
+              <option value="FK">Fakultas Kedokteran</option>
+              <option value="FE">Fakultas Ekonomi</option>
+              <option value="FBS">Fakultas Bahasa dan Seni</option>
+              <option value="FOK">Fakultas Olahraga dan Kesehatan</option>
+              <option value="FHIS">Fakultas Hukum dan Ilmu Sosial</option>
             </select>
           </div>
 
