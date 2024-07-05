@@ -1,4 +1,3 @@
-/* src/components/HomePage.css */
 .container {
     display: flex;
     flex-direction: column;
@@ -8,7 +7,7 @@
   }
   
   .logo {
-    width: 150px; /* Ubah ukuran sesuai kebutuhan */
+    width: 200px;
     margin-bottom: 20px;
   }
   

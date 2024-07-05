@@ -1,8 +1,9 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../auth';  // Import login from auth.js
+import { login } from '../auth'; 
 import '../components/Login.css';
+import logo from '../assets/newlogo.png';
 import { FaUser, FaLock } from "react-icons/fa";
 
 const LoginForm = () => {
@@ -23,6 +24,7 @@ const LoginForm = () => {
   return (
     <div className='login-container'>
       <div className='login-left-column'>
+      <img src={logo} alt="Campus News Logo" className="login-logo" />
         <p>LoanHub adalah sebuah aplikasi peminjaman yang dirancang berdasarkan keluhan sebagian dari fungsionaris organisasi mahasiswa di lingkungan kampus. Aplikasi ini bertujuan untuk memudahkan proses peminjaman barang dengan meningkatkan efisiensi dan transparansi dalam pengelolaan peminjaman.</p>
       </div>
       <div className='login-right-column'>

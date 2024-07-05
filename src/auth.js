@@ -8,11 +8,9 @@ export const register = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Simpan data pengguna ke Firestore
     await addDoc(collection(db, 'users'), {
       uid: user.uid,
       email: user.email,
-      // tambahkan data pengguna lainnya jika diperlukan
     });
 
     return user;

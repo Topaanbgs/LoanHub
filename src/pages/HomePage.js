@@ -6,7 +6,7 @@ import { auth } from '../firebase';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../components/HomePage.css';
-import logo from '../assets/logo.png';
+import logo from '../assets/newlogo.png';
 import proyektorImg from '../assets/proyektor.png';
 import laptopImg from '../assets/laptop.png';
 import kameraImg from '../assets/kamera.png';

@@ -1,32 +1,27 @@
-/* Global styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+
+.login-logo {
+
+  width: 200px;
+  margin-left: 150px;
 }
 
-body {
-  font-family: "Montserrat", sans-serif;
-  background-color: #ffffff;
-}
-
-/* Login Container Styles */
 .login-container {
   display: flex;
-  justify-content: space-between; /* Ensure columns are side by side */
+  justify-content: space-between;
   align-items: center;
   height: 100vh;
   padding: 20px;
 }
 
 .login-left-column {
-  width: 40%; /* Adjust as needed */
-  margin-left: 20px;
+  width: 40%;
+  margin-left: 65px;
+  height: 400px;
 }
 
 .login-left-column p {
   font-size: 18px;
-  color: #333;
+  color: #000000;
   text-align: justify;
 }
 
