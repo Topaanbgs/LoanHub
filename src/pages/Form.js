@@ -31,7 +31,6 @@ const BorrowForm = ({ startDate, endDate, itemId, itemName }) => {
         }
       });
       alert('Pengajuan peminjaman berhasil');
-      // Clear the form
       setNama('');
       setNim('');
       setFakultas('');

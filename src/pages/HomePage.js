@@ -1,4 +1,3 @@
-// src/pages/HomePage.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -45,7 +44,7 @@ const HomePage = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/login'); // Arahkan pengguna ke halaman login setelah logout
+      navigate('/login');
     } catch (error) {
       console.error("Error logging out: ", error);
     }
